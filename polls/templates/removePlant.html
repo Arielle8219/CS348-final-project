@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Plant Removal Dropdown</title>
+</head>
+
+<body>
+    <h1>Plant Removal Dropdown</h1>
+    <form method="post" action="{% url 'removePlant' %}">
+        {% csrf_token %}
+        <select name="scientific_name">
+            {% for plant in plants %}
+            <option value="{{ plant.scientfic_name }}">{{ plant.scientfic_name }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Submit">
+    </form>
+    <h1>Plant Update Dropdown</h1>
+    <form method="post" action="{% url 'updatePlant' %}">
+        {% csrf_token %}
+        <select name="scientific_name">
+            {% for plant in plants %}
+            <option value="{{ plant.scientfic_name }}">{{ plant.scientfic_name }}</option>
+            {% endfor %}
+        </select>
+        <select name = "field_name">
+            <option value="scientific_name">Scientific Name</option>
+            <option value="common_name">Common Name</option>
+            <option value="description">Description</option>
+            <option value="careID">Care ID</option>
+            <option value="idealGrowingConditions">Ideal Growing Conditions</option>
+            <option value="imageURL">Image URL</option>
+        </select>
+        <input type="text" name="new_value">
+        <input type="submit" value="Submit">
+    </form>
+</body>
+
+</html>

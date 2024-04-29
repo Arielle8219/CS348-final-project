@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Plant Information</title>
+</head>
+
+<body>
+    <h1>Plant Information</h1>
+    <ul>
+        {% for plant in context.plants %}
+        <li>{{ plant.scientfic_name }} - {{ plant.common_name }}</li>
+        <li>Description: {{ plant.description }}</li>
+        <li>Care Description: {{ plant.careID }}</li>
+        <li>Ideal Growing Conditions: {{ plant.idealGrowingConditions }}</li>
+       
+        {% if plant.scientfic_name in context.categories %}
+            {% for key, value in context.categories.items %}
+               {% if key == plant.scientfic_name and value %}
+                <li>{{ value.name }} | {{ value.description }}</li>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        {% if plant.scientfic_name in context.statistics %}
+            {% for key, value in context.statistics.items %}
+               {% if key == plant.scientfic_name and value %}
+                <li>Statistics
+                    <ul>
+                        <li>{{ value.beginnerFriendly }} people voted this plant as beginner friendly</li>
+                        <li>{{ value.expensive }} people voted this plant as being expensive </li>
+                        <li>{{ value.problematic }} people voted this plant as problematic</li>
+                        <li>Number of searches: {{value.searchCount}}</li>
+                    </ul>
+                </li>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        <form method = "post" action ="{% url 'addEasy' %}">
+            {% csrf_token %}
+            <li>
+                <label>Vote this plant as beginner friendly:</label>
+                <input type="hidden" name="plant" id="plant" value="{{ plant.scientfic_name }}">
+                <button type="submit">Vote </button>
+            </li>
+            
+        </form>
+        <form method="post" action="{% url 'addProblematic' %}">
+            {% csrf_token %}
+            <li>
+            <label>Vote this plant as problematic (pests, drooping, rot, etc):</label>
+            <input type="hidden" name="plant" id = "plant" value="{{ plant.scientfic_name }}">
+            <button type="submit">Vote </button>
+            </li>   
+        </form>
+        <form method="post" action="{% url 'addExpensive' %}">
+            {% csrf_token %}
+            <li>
+            <label>Vote this plant as expensive (initial cost, care cost, etc):</label>
+            <input type="hidden" name="plant" id = "plant" value="{{ plant.scientfic_name }}">
+            <button type="submit">Vote </button>
+            </li>
+        </form>
+        <br><br>
+        {% endfor %}
+
+    </ul>
+</body>
+
+</html>

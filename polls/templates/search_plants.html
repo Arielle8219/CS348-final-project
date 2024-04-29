@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<form method="POST" action="{% url 'searchPlants' %}">
+    {% csrf_token %}
+    <label for="careId">Select a care tip:</label>
+        <select name="careId">
+            <option value="ALL"> </option>
+            {% for c in cares %}
+            <option value="{{ c.careID }}">{{ c.description }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <label for="categoryId">Select a category of plant:</label>
+        <select name="categoryId">
+            <option value="ALL"> </option>
+            {% for c in categories %}
+            <option value="{{ c.categoryID }}">{{ c.name }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <label for="statisticId">Select a statistic to sort by:</label>
+        <select name="statisticId">
+            <option value="ALL"> No Sort </option>
+            <option value="popularity">Number of searches</option>
+            <option value="beginnerFriendly">Beginner Friendly</option>
+            <option value="price">Price</option>
+            <option value = "problematic">Problematic</option>
+        </select>
+        <br><br>
+
+
+    <button type="submit">Search</button>
+</form>
+
+</html>

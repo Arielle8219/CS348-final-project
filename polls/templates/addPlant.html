@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Plant Information</title>
+</head>
+
+<body>
+    <h1>Plant Information</h1>
+    <form method = "post"  action="{% url 'addPlant' %}">
+        {% csrf_token %}
+        <label for="scientific_name">Scientific Name:</label><br>
+        <input type="text" id="scientific_name" name="scientific_name"><br><br>
+
+        <label for="common_name">Common Name:</label><br>
+        <input type="text" id="common_name" name="common_name"><br><br>
+
+        <label for="description">Description:</label><br>
+        <textarea id="description" name="description" rows="4" cols="50"></textarea><br><br>
+
+        <label for="careID">Care Tip:</label><br>
+        <select name="careID">
+            {% for c in care %}
+            <option value="{{ c.careID }}">{{ c.description }}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+
+        <label for="idealGrowingConditions">Ideal Growing Conditions:</label><br>
+        <input type="text" id="idealGrowingConditions" name="idealGrowingConditions"><br><br>
+
+        <label for="imageURL">Image URL:</label><br>
+        <input type="text" id="imageURL" name="imageURL"><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+
+</html>

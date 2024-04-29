@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+
+
+{% for plant in plants %}
+<h2>{{ plant.common_name }}</h2>
+<p>{{ plant.description }}</p>
+<h3>Statistics:</h3>
+<ul>
+    {% for statistic in plant.statistics.all %}
+    <li>{{ statistic.statistic_name }}</li>
+    {% endfor %}
+</ul>
+<h3>Care Conditions:</h3>
+<p>{{ plant.care.description }}</p>
+{% endfor %}
+
+</html>
